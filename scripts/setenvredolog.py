@@ -16,13 +16,15 @@ raHome = pathlib.PurePath(__file__).parent.parent
 gsHome = pathlib.PurePath(raHome).parent
 scriptLocation = raHome.joinpath('scripts')
 resourceLocation = raHome.joinpath('resources')
-resourceAdminShare = str(resourceLocation.drive).replace(':','$')
-resourceNetPath = f"{resourceAdminShare}{str(resourceLocation).replace(resourceLocation.drive , '')}"
 jarFilePath = resourceLocation.joinpath(jarFileName)
-sourcePath = gsHome.joinpath('Work/redo-log', spaceName)
-targetPath = gsHome.joinpath('backup/work/redo-log', spaceName)
+sourcePath = gsHome.joinpath('Work','redo-log', spaceName)
+defultSourceRedoBackupPath = gsHome.joinpath('Work', 'redo-log-backup', spaceName)
+targetPath = gsHome.joinpath('backup', 'work', 'redo-log', spaceName)
 targetPathBaseDir = gsHome.joinpath('backup')
 deserializeFullPath = gsHome.joinpath('backup')
 
 redoLogYaml = str(gsHome.joinpath('backup','AllDeserializedFiles'))
 assemblyFileName = str(gsHome.joinpath('Deploy','DataProcessor','GigaSpaces.Examples.ProcessingUnit.Common.dll'))
+
+# resource sync control switch [True|False]
+SYNC_RESOURCES = True
