@@ -7,41 +7,29 @@ recovery.py: main script
 
 if __name__ == '__main__':
     
-    import subprocess
-    import re
-    import pathlib
-    
-    def module_exist(_module_name):
-        r = subprocess.run(
-            "pip list".split(), 
-            stdout=subprocess.PIPE).stdout.decode().lower()
-        if re.search(_module_name.lower(), r):
-            return True
-        return False
-    
-    modules = ['pyyaml','colorama','pyfiglet']
-    for module in modules:
-        if not module_exist(module):
-            subprocess.run([f'pip install {module}'], shell=True)
-
-    from platform import system
-    import os
-    import yaml
-
-    # import custom modules
+    from scripts.setenvredolog import *
     from modules import (
         print_locations,
+        print_header,
         pretty_print,
         press_any_key,
-        validate_navigation_select
+        validate_navigation_select,
+        Spinner
     )
-
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    MENU_YAML = f"{BASE_DIR}/config/menu.yaml"
-    CONFIG_YAML = f"{BASE_DIR}/config/config.yaml"
+    import subprocess
+    import os
+    import yaml
+    from platform import system
+    
+    spinner = Spinner
+    initialization = str(raHome.joinpath('init.py'))
+    print_header()
+    with spinner('Initializing... ', delay=0.1):
+        subprocess.run(initialization, shell=True)
+    
+    MENU_YAML = str(raHome.joinpath('config', 'menu.yaml'))
     user_selections = []
     
-
     def exec_target_ok(_target):
         """
         check target script
@@ -54,7 +42,7 @@ if __name__ == '__main__':
             pretty_print(_err_msg, 'red')
             return False
         # checking that target script exists
-        _script = f"{BASE_DIR}/scripts/{_target}"
+        _script = str(raHome.joinpath('scripts', _target))
         if not os.path.exists(_script):
             _err_msg = f"EXEC ERROR: target 'scripts/{os.path.basename(_script)}' not found"
             pretty_print(_err_msg, 'red')
@@ -66,7 +54,6 @@ if __name__ == '__main__':
     with open(MENU_YAML, 'r', encoding="utf-8") as yml:
         data = yaml.safe_load(yml)
     try:
-        #print_header()
         while True:
             if len(user_selections) != 0:
                 # building dynamic dictionary according to menu choices
@@ -82,7 +69,7 @@ if __name__ == '__main__':
                     user_selections.pop()
                     continue
                 # execute target script
-                script = str(pathlib.PurePath(BASE_DIR).joinpath('scripts', _dict['target']))
+                script = str(raHome.joinpath('scripts', _dict['target']))
                 subprocess.call([script], shell=True)
                 user_selections.pop()
                 continue
