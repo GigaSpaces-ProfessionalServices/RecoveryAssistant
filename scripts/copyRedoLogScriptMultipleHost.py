@@ -14,8 +14,8 @@ with open(pathlib.PurePath.joinpath(scriptLocation, spaceHostsFileName), 'r', en
 
 exec = str(pathlib.PurePath.joinpath(resourceLocation, 'psexec.exe')).replace('\\','\\\\')
 source_path = str(sourcePath).replace('\\','\\\\')
+default_source_path_redo_backup = str(defultSourceRedoBackupPath ).replace('\\','\\\\')
 target_path = str(targetPath).replace('\\','\\\\')
-
 
 for item in jdata:
     a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    
@@ -34,6 +34,7 @@ for item in jdata:
     create_target_cmd = f'"{exec}" -nobanner \\\\{connection_params} cmd /c "if not exist "{target_path}" (md "{target_path}")"'
     check_target_cmd = f'"{exec}" -nobanner \\\\{connection_params} cmd /c "cd "{target_path}""'
     copy_files_cmd = f'"{exec}" -nobanner \\\\{connection_params} cmd /c "xcopy "{source_path}" "{target_path}" /s /e /h /y"'
+    copy_files_cmd_from_redo_backup = f'"{exec}" -nobanner \\\\{connection_params} cmd /c "if not exist "{default_source_path_redo_backup}" robocopy "{default_source_path_redo_backup}" "{target_path}" /MOVE'
     
     # create target if not exist
     print(" - creating target folder... ", end='')
@@ -54,6 +55,8 @@ for item in jdata:
     # copy files from source
     print(" - copying files to target... ", end='')
     subprocess.call(copy_files_cmd, shell=True, stderr=subprocess.DEVNULL)
+    print("moving default redo bakup files")
+    subprocess.call(copy_files_cmd_from_redo_backup, shell=True, stderr=subprocess.DEVNULL)
     print("done")
 
 print()
