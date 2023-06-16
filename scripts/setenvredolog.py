@@ -5,8 +5,8 @@ import pathlib
 
 spaceName = "dataExampleSpace"
 lookupLocators = "EC2AMAZ-PUUQMQH"
-lookupGroups = "xap-16.2.1"
-spaceHostsFileName = "spaceHosts.txt"
+lookupGroups = "xap-16.3.0"
+spaceHostsFileName = "spaceHosts.json"
 redoLogScriptName = "copyRedoLogScript.bat"
 deserializeScriptName = "deserializeScript.py"
 jarFileName = 'redolog-client-1.0-SNAPSHOT-jar-with-dependencies.jar'
@@ -15,6 +15,7 @@ jarFileName = 'redolog-client-1.0-SNAPSHOT-jar-with-dependencies.jar'
 raHome = pathlib.PurePath(__file__).parent.parent
 gsHome = pathlib.PurePath(raHome).parent
 scriptLocation = raHome.joinpath('scripts')
+configLocation = raHome.joinpath('config')
 resourceLocation = raHome.joinpath('resources')
 jarFilePath = resourceLocation.joinpath(jarFileName)
 sourcePath = gsHome.joinpath('Work','redo-log', spaceName)

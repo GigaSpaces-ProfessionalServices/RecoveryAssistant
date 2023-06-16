@@ -85,9 +85,9 @@ if __name__ == '__main__':
             {"name": "redolog-client-1.0-SNAPSHOT-jar-with-dependencies.jar", "location": str(resourceLocation)},
             {"name": "sqlite3.exe", "location": str(resourceLocation)},
             {"name": "psexec.exe", "location": str(resourceLocation)},
-            {"name": "spaceHosts.txt", "location": str(scriptLocation)}
+            {"name": "spaceHosts.json", "location": str(configLocation)}
             ]
-        with open(pathlib.PurePath.joinpath(scriptLocation, spaceHostsFileName), 'r', encoding='utf-8') as jhf:
+        with open(pathlib.PurePath.joinpath(configLocation, spaceHostsFileName), 'r', encoding='utf-8') as jhf:
             SERVERS = json.load(jhf)
         
         connection_threads = [

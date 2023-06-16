@@ -9,7 +9,7 @@ import pathlib
 import socket
 
 # load servers
-with open(pathlib.PurePath.joinpath(scriptLocation, spaceHostsFileName), 'r', encoding='utf-8') as jhf:
+with open(pathlib.PurePath.joinpath(configLocation, spaceHostsFileName), 'r', encoding='utf-8') as jhf:
     jdata = json.load(jhf)
 
 exec = str(pathlib.PurePath.joinpath(resourceLocation, 'psexec.exe')).replace('\\','\\\\')

@@ -6,7 +6,8 @@ from setenvredolog import *
 
 jarFilePath = str(jarFilePath).replace("\\","\\\\")
 gsHome = str(gsHome).replace("\\","\\\\") + '\\\\'
-scriptLocation = str(scriptLocation).replace("\\","\\\\") + '\\\\'
+resourceLocation = str(resourceLocation).replace("\\","\\\\") + '\\\\'
+configLocation = str(configLocation).replace("\\","\\\\") + '\\\\'
 targetPath = str(targetPath).replace("\\","\\\\") + '\\\\'
 targetPathBaseDir = str(targetPathBaseDir).replace("\\","\\\\")
 deserializeFullPath = str(deserializeFullPath).replace("\\","\\\\")
@@ -14,7 +15,8 @@ deserializeFullPath = str(deserializeFullPath).replace("\\","\\\\")
 jCMD = f'java -jar "{jarFilePath}" RemoteDeserializeRedoLog \
 --spaceName={spaceName} \
 --gsHome="{gsHome} " \
---scriptLocation="{scriptLocation} " \
+--resourceLocation="{resourceLocation} " \
+--configLocation="{configLocation} " \
 --targetDir="{targetPath} " \
 --targetPathBaseDir="{targetPathBaseDir} " \
 --deserializeFullPath="{deserializeFullPath} "'
