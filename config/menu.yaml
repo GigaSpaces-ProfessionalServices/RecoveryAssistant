@@ -25,12 +25,7 @@ description: 'Follow these steps to recover from failures'
     target: 'collectAllDeserializeFilesToPivot.py'
     description: 'Gather all deserialized redolog files to one target'
 4:
-    id: 'Step #4 - Check Target Space '
-    type: 'exec'
-    target: 'checkTargetSpace.py'
-    description: 'add description here...'
-5:
-    id: 'Step #5 - Run Replay Script '
+    id: 'Step #4 - Run Replay Script '
     type: 'exec'
     target: 'spaceReplay.py'
     description: 'Go over all deserialized redologs and apply them to the new space'
